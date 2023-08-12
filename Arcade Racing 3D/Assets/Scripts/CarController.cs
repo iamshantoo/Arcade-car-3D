@@ -15,8 +15,8 @@ public class CarController : MonoBehaviour
     {
         public GameObject wheelModel;
         public WheelCollider wheelCollider;
-        //public GameObject wheelEffectObj;
-        //public ParticleSystem smokeParticle;
+        public GameObject wheelEffectObj;
+        public ParticleSystem smokeParticle;
         public Axle axle;
     }
 
@@ -35,21 +35,17 @@ public class CarController : MonoBehaviour
 
     private Rigidbody carRb;
 
-    //private CarLights carLights;
-
     void Start()
     {
         carRb = GetComponent<Rigidbody>();
         carRb.centerOfMass = _centerOfMass;
-
-        //carLights = GetComponent<CarLights>();
     }
 
     void Update()
     {
         GetInputs();
         AnimateWheels();
-        //WheelEffects();
+        WheelEffects();
         Brake();
     }
 
@@ -95,9 +91,6 @@ public class CarController : MonoBehaviour
             {
                 wheel.wheelCollider.brakeTorque = carRb.mass * brakeAcceleration * Time.deltaTime;
             }
-
-            //carLights.isBackLightOn = true;
-            //carLights.OperateBackLights();
         }
         else if(Input.GetKeyUp(KeyCode.Space))
         {
@@ -105,9 +98,6 @@ public class CarController : MonoBehaviour
             {
                 wheel.wheelCollider.brakeTorque = 0;
             }
-
-            //carLights.isBackLightOn = false;
-            //carLights.OperateBackLights();
         }
     }
 
@@ -123,21 +113,19 @@ public class CarController : MonoBehaviour
         }
     }
 
-    /*void WheelEffects()
+    void WheelEffects()
     {
         foreach (var wheel in wheels)
         {
-            //var dirtParticleMainSettings = wheel.smokeParticle.main;
-
             if (Input.GetKey(KeyCode.Space) && wheel.axle == Axle.Rear && wheel.wheelCollider.isGrounded == true && carRb.velocity.magnitude >= 10.0f)
             {
                 wheel.wheelEffectObj.GetComponentInChildren<TrailRenderer>().emitting = true;
-                //wheel.smokeParticle.Emit(1);
+                wheel.smokeParticle.Emit(1);
             }
             else
             {
                 wheel.wheelEffectObj.GetComponentInChildren<TrailRenderer>().emitting = false;
             }
         }
-    }*/
+    }
 }
