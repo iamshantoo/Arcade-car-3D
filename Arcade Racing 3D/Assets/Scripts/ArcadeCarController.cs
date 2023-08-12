@@ -32,7 +32,7 @@ public class ArcadeCarController : MonoBehaviour
 
         moveInput *= moveInput > 0 ? forwardSpeed : reverseSpeed;
 
-        transform.position = sphereRb.position;
+        transform.position = sphereRb.transform.position;
 
         float newRotation = turnInput * turnSpeed * Time.deltaTime * Input.GetAxisRaw("Vertical");
         transform.Rotate(0, newRotation, 0, Space.World);
